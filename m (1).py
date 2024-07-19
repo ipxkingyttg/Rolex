@@ -155,7 +155,7 @@ def add_user(message):
         else:
             response = "Please specify a user ID and the duration (e.g., 1hour, 2days, 3weeks, 4months) to add 😘."
     else:
-        response = "Only Admin Can Run This Command 😡."
+        response = "Only Admin Can Run This Command  😡."
 
     bot.reply_to(message, response)
 
